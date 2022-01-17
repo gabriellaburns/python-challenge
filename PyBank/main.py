@@ -1,6 +1,7 @@
 import os
 import csv
-from pathlib import Path 
+import pathlib
+
 
 #set path for file 
 csvpath = os.path.join("/Users/gabriellaburns/Desktop/GT_HW/python-challenge/PyBank/Resources/budget_data.csv")
