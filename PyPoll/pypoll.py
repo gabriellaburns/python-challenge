@@ -8,15 +8,10 @@ csvpath = os.path.join("/Users/gabriellaburns/Desktop/GT_HW/python-challenge/PyP
 #variables etc
 vote_total = []
 candidate_list = []
-candidates = []
-candidate_vote_total = []
-candidate_vote_percent =[]
-candidate_unique = []
-winner = []
-dic = {}
 
 
-with open(csvpath) as csvfile:
+
+with open(csvpath, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 
     csv_reader=next(csvreader)
@@ -25,3 +20,9 @@ with open(csvpath) as csvfile:
     for row in csvreader:
         vote_total.append(row[0])
         #print(len(vote_total))
+        candidate_list.append(row[2])
+    for i in candidate_list:
+        i = 0
+        if i = i + 1:
+            candidate_votes = .append(candidate_list)
+
