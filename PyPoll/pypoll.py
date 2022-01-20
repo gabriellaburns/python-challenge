@@ -67,13 +67,26 @@ with open(file_to_save, "w") as txt_file:
         f"\nElection Results\n"
         f"-------------------------\n"
         f"Total Votes: {vote_total}\n"
-        f"-------------------------\n"
-        for key in (sorted_candidate_percent.keys()):
-            f"{key}: {sorted_candidate_percent[key]} ({sorted_candidate_total[key]})\n"
+        f"-------------------------\n")
+    for key in sorted_candidate_percent.keys():
+        election_results = election_results + f"{key}: {sorted_candidate_percent[key]}% ({sorted_candidate_total[key]})\n"
+    election_results = election_results + (
         f"-------------------------\n"
         f"Winner: {winner}\n"
-        f"-------------------------\n"
+        f"-------------------------\n")
     print(election_results, end="")
+
+    txt_file.write(election_results)
+
+#for loop that makes terminal angry when trying to write txt file
+#for key in (sorted_candidate_percent.keys()):
+#new string formula (changed" locations)
+#for key in sorted_candidate_percent.keys()
+    #string = str(key):+" "str(sorted_candidate_percent[key])+" "(+" "str(sorted_candidate_total[key])+" ")+"\n"
+
+
+#for key in (sorted_candidate_percent.keys()):
+            #f"{key}: {sorted_candidate_percent[key]} ({sorted_candidate_total[key]})\n"
 
 #I also tried this, which brokeon line 88
 #output = open("election_results.txt", "w")
@@ -90,3 +103,21 @@ with open(file_to_save, "w") as txt_file:
 #line6 = str(f"Winner: {winner}")
 #line7 = "--------------------------"
 #output.write('{}\n{}\n{}\n'.format(line5, line6, line7))
+
+#with open(file_to_save, "w") as txt_file:
+    #I think this should be right - not sure why it's not working! 
+   # election_results = (
+        #f"\nElection Results\n"
+        #f"-------------------------\n"
+        #f"Total Votes: {vote_total}\n"
+        #f"-------------------------\n"
+        #for key in sorted_candidate_percent.keys()
+       #     = str(
+       #         f"{key}: {sorted_candidate_percent[key]} ({sorted_candidate_total[key]})\n"
+       #     output.write('{}\n'.format(line))
+       # f"-------------------------\n"
+       # f"Winner: {winner}\n"
+       # f"-------------------------\n"
+   # print(election_results, end="")
+
+   # txt_file.write(election_results)
