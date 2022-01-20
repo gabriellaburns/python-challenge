@@ -5,9 +5,9 @@ import collections
 from collections import Counter
 
 csvpath = os.path.join("/Users/gabriellaburns/Desktop/GT_HW/python-challenge/PyPoll/Resources/election_data.csv")
+file_to_save = os.path.join("analysis", "election_analysis.txt")
 
-#variables etc
-
+#variables 
 vote_total = 0
 candidate_list = []
 candidate_vote_total = {}
@@ -22,17 +22,13 @@ with open(csvpath, 'r') as csvfile:
     #total votes and total rows
     for row in csvreader:
         vote_total = vote_total + 1
-        #print(len(vote_total))
         candidate_list.append(row[2])
-        
-        #add 
        
-    #convert candidate list to set to get unique values, then back to list 
+    #convert candidate list to set to get unique values, then back to list to get a list containing each candidate's name once
     candidate_set = set(candidate_list)
     candidate_name =list(candidate_set)
     candidate_vote_total = dict.fromkeys(candidate_name, 0)
     candidate_vote_percent = dict.fromkeys(candidate_name, 0)
-    #add names to dictionary 
     
     #calculate vote total for each candidate
     for x in candidate_list:
@@ -45,19 +41,52 @@ with open(csvpath, 'r') as csvfile:
     
     #make the percent look prettier
     for key, value in candidate_vote_percent.items():
-        candidate_vote_percent[key] = round((value*100),3)
+        candidate_vote_percent[key] = round((value*100),4)
     
     #first we rock the vote, then we sort it from most to least votes
     sorted_candidate_total = dict( sorted(candidate_vote_total.items(), key=operator.itemgetter(1),reverse=True))
-    
-    #find winner
-    winner = max(candidate_vote_total, key=candidate_vote_total.get)
-
-    #print to terminal
-    for key in set(candidate_vote_percent.keys()) & set(candidate_vote_total.keys()):
-        print(f"{key},: {candidate_vote_percent[key]}%, ({candidate_vote_total[key]})")
-#results = dict(candidate_name, candidate_vote_total, candidate_vote_percent)
-#print( "totals are :" + str(results))
+    sorted_candidate_percent = dict( sorted(candidate_vote_percent.items(), key=operator.itemgetter(1),reverse=True))
  
+    winner = max(candidate_vote_total, key=candidate_vote_total.get)
+    
 
+    #terminal print out
+    print("Election Results")
+    print("-------------------------")
+    print(f"Total Votes: {vote_total}")
+    print("-------------------------")
+    for key in (sorted_candidate_percent.keys()):
+       print(f'{key}: {sorted_candidate_percent[key]} ({sorted_candidate_total[key]})')
+    print("-------------------------")
+    print(f"Winner: {winner}")
+    print("-------------------------")
 
+with open(file_to_save, "w") as txt_file:
+    #I think this should be right - not sure why it's not working! 
+    election_results = (
+        f"\nElection Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {vote_total}\n"
+        f"-------------------------\n"
+        for key in (sorted_candidate_percent.keys()):
+            f"{key}: {sorted_candidate_percent[key]} ({sorted_candidate_total[key]})\n"
+        f"-------------------------\n"
+        f"Winner: {winner}\n"
+        f"-------------------------\n"
+    print(election_results, end="")
+
+#I also tried this, which brokeon line 88
+#output = open("election_results.txt", "w")
+#line1 = "Election Results"
+#line2 = "--------------------------"
+#line3 = str(f"Total Votes: {str(vote_total)}")
+#line4 = str("--------------------------")
+#output.write('{}\n{}\n{}\n{}\n'.format(line1, line2, line3, line4))
+#for i in range(len(candidate_name)):
+ #   line = str(
+  #      f"{candidate_name[i]}: {str(sorted_candidate_percent[i])} ({str(sorted_candidate_total[i])})"
+   # output.write('{}\n'.format(line))
+#line5 = "--------------------------"
+#line6 = str(f"Winner: {winner}")
+#line7 = "--------------------------"
+#output.write('{}\n{}\n{}\n'.format(line5, line6, line7))
